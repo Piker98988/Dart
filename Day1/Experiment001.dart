@@ -47,33 +47,119 @@ void back() {
 }
 
 void div() {
-  stdout.write("""Welcome to division mode. Maximum of two numbers. Input:
-  Number 1: """);
-  double? num1 = double.parse(stdin.readLineSync()!);
-  stdout.write("Number 2: ");
-  double? num2 = double.parse(stdin.readLineSync()!);
-  double result = num1 / num2;
-  stdout.write("The result of $num1 / $num2 is $result.\n");
-  sleep(Duration(seconds: 1, milliseconds: 500));
-  stdout.write("Going back...\n");
+  bool mode = true;
+  while (mode) {
+    stdout.write("""Entered division mode. Maximum of two numbers. Input q to exit mode.
+  Input 1: """);
+    String? input = stdin.readLineSync()!;
+    if (input.toLowerCase().contains("q")) {
+      mode = false;
+      break;
+    }
+    double? num1 = double.parse(input);
+    stdout.write("  Number 2: ");
+    double? num2 = double.parse(stdin.readLineSync()!);
+    double result = num1 / num2;
+    stdout.write("The result of $num1 / $num2 is $result.\n");
+    stdout.write("Restarting...\n");
+    sleep(Duration(seconds: 1, milliseconds: 500));
+  }
 }
 
 void sub() {
-  stdout.write("""Welcome to substraction mode. Maximum of two numbers. Input:
-  Number 1: """);
-  double? num1 = double.parse(stdin.readLineSync()!);
-  stdout.write("Number 2: ");
-  double? num2 = double.parse(stdin.readLineSync()!);
-  double result = num1 - num2;
-  stdout.write("The result of $num1 - $num2 is $result.\n");
-  sleep(Duration(seconds: 1, milliseconds: 500));
-  stdout.write("Going back...\n");
+  bool mode = true;
+  while (mode) {
+    stdout.write("""Welcome to substraction mode. Maximum of two numbers. Quit mode by using q.
+  Input 1: """);
+    String? input = stdin.readLineSync()!;
+    if (input.toLowerCase().contains("q")) {
+      mode = false;
+      break;
+    }
+    double? num1 = double.parse(input);
+    stdout.write("Number 2: ");
+    double? num2 = double.parse(stdin.readLineSync()!);
+    double result = num1 - num2;
+    stdout.write("The result of $num1 - $num2 is $result.\n");
+    stdout.write("Going back...\n");
+    sleep(Duration(seconds: 2, milliseconds: 500));
+  }
 }
 
 void mul() {
+  bool mode = true;
+  while (mode) {
+    stdout.write("""Entered multiplication mode. There is no max for numbers. To quit mode type "q".
+Input your numbers separated by a comma and a space (", "). Else, you will have to input them again.
+  Input: """);
+    bool ready = false;
+    String input = "";
+    List<String> numsSTR = [];
+    List<int> numsINT = [];
+    while (!ready) {
+      try {
+        input = stdin.readLineSync()!;
+        if (input.contains("q")) {
+          mode = false;
+          break;
+        }
+        numsSTR = input.split(", ");
+        for (dynamic i in numsSTR) {
+          numsINT.add(int.parse(i!));
+        }
+        ready = true;
+      } catch (Exception) {
+        stdout.write("Enter a valid input.\n");
+      }
+    }
+    if (ready) {
+      int result = 1;
+      for (int i in numsINT) {
+        result *= i;
+      }
+      stdout.write("The result of your operation ($numsINT) = $result\n");
+      sleep(Duration(seconds: 2, milliseconds: 500));
+      stdout.write("Restarting...\n");
+    }
+  }
 }
 
 void add() {
+  bool mode = true;
+  while (mode) {
+    stdout.write("""Entered addition mode. There is no max for numbers. To quit mode type "q".
+Input your numbers separated by a comma and a space (", "). Else, you will have to input them again.
+  Input: """);
+  bool ready = false;
+  String input = "";
+  List<String> numsSTR = [];
+  List<int> numsINT = [];
+  while (!ready) {
+    try {
+      input = stdin.readLineSync()!;
+      if (input.contains("q")) {
+        mode = false;
+        break;
+      }
+      numsSTR = input.split(", ");
+      for (dynamic i in numsSTR) {
+        numsINT.add(int.parse(i!));
+        }
+        ready = true;
+      } catch (Exception) {
+        stdout.write("Enter a valid input.\n");
+      }
+    }
+    if (ready) {
+      int result = 1;
+      for (int i in numsINT) {
+        result += i;
+      }
+      stdout.write("The result of your operation ($numsINT) = $result\n");
+      sleep(Duration(seconds: 2, milliseconds: 500));
+      stdout.write("Restarting...\n");
+    }
+  }
 }
 
 void printText1() {
@@ -94,9 +180,9 @@ void printText2() {
 }
 
 int? valid1(String r) {
-  if (r == "a") {
+  if (r == "m") {
     return 1;
-  } else if (r == "b"){
+  } else if (r == "q"){
     return 0;
   } else {
     return 2;
