@@ -190,26 +190,31 @@ int? valid1(String r) {
 }
 
 void quit() {
-  Map<int, String> statements = {
-    11:"[....0%....]",
-    10:"[-...10%....]",
-    9: "[--..20%....]",
-    8: "[---.30%....]",
-    7: "[----40%....]",
-    6: "[----50%....]",
-    5: "[----60%....]",
-    4: "[----70%-...]",
-    3: "[----80%--..]",
-    2: "[----90%---.]",
-    1: "[----100%----]"
-  };
   stdout.write("Thanks for using calculator!\n");
   var random = Random();
-  for (var i = 11; i > 0; i--) {
+  for (int i = 0; i < 11; i++) {
+    stdout.write("Quitting... ${getQuitTextPercentage(i)}\n");
     sleep(Duration(seconds: random.nextInt(5)));
-    stdout.write("Quitting... ${statements[i]}\n");
   }
   stdout.write("Completed!\n");
   start = false;
   exit(0);
+}
+
+String? getQuitTextPercentage(int iterationNumber) {
+  int percentage = iterationNumber * 10;
+  Map<int, String> statements = {
+    0: "[....$percentage%....]",
+    1: "[-...$percentage%....]",
+    2: "[--..$percentage%....]",
+    3: "[---.$percentage%....]",
+    4: "[----$percentage%....]",
+    5: "[----$percentage%....]",
+    6: "[----$percentage%....]",
+    7: "[----$percentage%-...]",
+    8: "[----$percentage%--..]",
+    9: "[----$percentage%---.]",
+    10:"[----$percentage%----]"
+  };
+  return statements[iterationNumber];
 }
